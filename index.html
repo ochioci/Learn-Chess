@@ -4,10 +4,189 @@
     <meta charset="utf-8">
     <title>chess puzzles</title>
     <script>
+      async function getRandomPuzzle() {
+        const response = await fetch("getRandomPuzzle.php");
+        const resText = await response.text();
+        return resText.split("<br>")
+      }
 
+      async function init() {
+        frameDelay = 100 //delay between game loop updates
+        selectedStart='none' //square to move piece from
+        selectedEnd='none' //square to move piece to
+        board=[]
+        flipBoard = false
+        solutions = ''
+        solved = false
+        puzzleData = ''
+
+        //init canvas stuff
+
+        canvas = document.querySelector("canvas")
+        canvas.width = (window.innerHeight * 0.8)
+        canvas.height = (window.innerHeight * 0.8)
+        ctx = canvas.getContext("2d");
+
+        //on canvas
+          //0,0 is top left
+          //width, 0 is top right
+          //0, height is bottom left
+          //width, height is bottom right
+
+
+        ctx.fillStyle = "lightblue";
+        ctx.fillRect(0,100,40,40)
+        //begin game loop (handles board gui)
+        await startNewPuzzle();
+        gameLoop();
+      }
+
+      async function startNewPuzzle() {
+        board = []
+        //create 2d array that will represent the board
+        //bottom left (aka [7][0]) should be white!
+        //therefore [0][0] should be black right
+        let toggle = false;
+        for (let i = 0; i < 8; i++) {
+          board.push([])
+          for (let n = 0; n < 8; n++) {
+            board[i].push([])
+            board[i][n] = {"isDarkSquare": toggle, "occupier": {"type": "none", "color": "none"}}
+            toggle = (toggle) ? false : true
+          }
+          toggle = (toggle) ? false : true
+        }
+        //WHEN READING 8x8 ARRAY board IN ROW MAJOR ORDER:
+          // board[0][0] IS a8 (top left)
+          // board[0][7] IS h8 (top right)
+          // board[7][7] IS h1 (bottom right)
+          // board[7][0] IS a1 (bottom left)
+
+        //fill pieces into board
+          //pawns
+          for (let i = 0; i < 8; i++) {
+            board[1][i].occupier = {"type": "pawn", "color": "b"}
+            board[6][i].occupier = {"type": "pawn", "color": "w"}
+          }
+
+          //rooks
+          board[0][0].occupier = {"type": "rook", "color": "b"}
+          board[0][7].occupier = {"type": "rook", "color": "b"}
+          board[7][0].occupier = {"type": "rook", "color": "w"}
+          board[7][7].occupier = {"type": "rook", "color": "w"}
+
+          //knights
+          board[0][1].occupier = {"type": "knight", "color": "b"}
+          board[0][6].occupier = {"type": "knight", "color": "b"}
+          board[7][1].occupier = {"type": "knight", "color": "w"}
+          board[7][6].occupier = {"type": "knight", "color": "w"}
+
+          //bishops
+          board[0][2].occupier = {"type": "bishop", "color": "b"}
+          board[0][5].occupier = {"type": "bishop", "color": "b"}
+          board[7][2].occupier = {"type": "bishop", "color": "w"}
+          board[7][5].occupier = {"type": "bishop", "color": "w"}
+
+          //queen
+          board[0][3].occupier = {"type": "queen", "color": "b"}
+          board[7][3].occupier = {"type": "queen", "color": "w"}
+
+          // //king
+          board[0][4].occupier = {"type": "king", "color": "b"}
+          board[7][4].occupier = {"type": "king", "color": "w"}
+
+        puzzleData = await getRandomPuzzle();
+        seqToFollow = puzzleData[1].split(" ")
+        console.log(seqToFollow)
+        solutions = puzzleData[2]
+        chessLetters = 'abcdefgh'
+        flipBoard = (seqToFollow.length % 2 == 0) ? false : true;
+        for (let i = 0; i < seqToFollow.length; i++) {
+
+          let fromSquareRow = 8 - parseInt(seqToFollow[i].substring(1,2))
+          let fromSquareCol = chessLetters.indexOf(seqToFollow[i].substring(0,1))
+
+
+          let toSquareRow = 8 - parseInt(seqToFollow[i].substring(3,4))
+          let toSquareCol = chessLetters.indexOf(seqToFollow[i].substring(2,3))
+
+          console.log(seqToFollow[i], fromSquareRow, fromSquareCol)
+          board[toSquareRow][toSquareCol].occupier = board[fromSquareRow][fromSquareCol].occupier
+          board[fromSquareRow][fromSquareCol].occupier = {"type": "none", "color": "none"}
+
+        }
+        solved = false;
+      }
+
+      function gameLoop() {
+        drawSquares() //draws the board's tiles
+        drawPieces() //draws the board's pieces
+
+        setTimeout(gameLoop, frameDelay)
+      }
+
+      function drawSquares() {
+        for (let i = 0; i < 8; i++) {
+          for (let n = 0; n < 8; n++) {
+            ctx.fillStyle = board[i][n].isDarkSquare ? "darkgreen" : "lightgray";
+            let drawX = n * (canvas.width/8)
+            let drawY = i * (canvas.height / 8)
+            ctx.fillRect(drawX, drawY, canvas.width/8, canvas.height/8)
+          }
+        }
+      }
+
+      function drawPieces() {
+        if (!flipBoard) {
+          for (let i = 0; i < 8; i++) {
+            for (let n = 0; n < 8; n++) {
+              if (board[i][n].occupier.type != "none") {
+                ctx.fillStyle = board[i][n].occupier.color == "w" ? "white" : "black";
+                let drawX = (n * (canvas.width/8))
+                let drawY = (i * (canvas.height / 8)) + (canvas.height/8)
+                let pieceUnicode = 'x'
+                let ocp = board[i][n].occupier.type
+                pieceUnicode = ((ocp=="king")?'\u{2654}':(ocp=="queen")?'\u{2655}':(ocp=="rook")?'\u{2656}':(ocp=="bishop")?'\u{2657}':(ocp=="knight")?'\u{2658}':'\u{2659}') //holy shit this fucking works
+
+                ctx.font = (canvas.width/8).toString() + "px serif"
+                ctx.fillText(pieceUnicode, drawX, drawY)
+              }
+            }
+          }
+        } else {
+          for (let i = 0; i < 8; i++) {
+            for (let n = 0; n < 8; n++) {
+              if (board[i][n].occupier.type != "none") {
+                ctx.fillStyle = board[i][n].occupier.color == "w" ? "white" : "black";
+                let drawX = ((7-n) * (canvas.width/8))
+                let drawY = ((7-i) * (canvas.height / 8)) + (canvas.height/8)
+                let pieceUnicode = 'x'
+                let ocp = board[i][n].occupier.type
+                pieceUnicode = ((ocp=="king")?'\u{2654}':(ocp=="queen")?'\u{2655}':(ocp=="rook")?'\u{2656}':(ocp=="bishop")?'\u{2657}':(ocp=="knight")?'\u{2658}':'\u{2659}') //holy shit this fucking works
+
+                ctx.font = (canvas.width/8).toString() + "px serif"
+                ctx.fillText(pieceUnicode, drawX, drawY)
+              }
+            }
+          }
+        }
+
+      }
+
+
+      function printBoardRowMajor() {
+        for (let i = 0; i < 8; i++) {
+          let o = ''
+          for (let n = 0; n < 8; n++) {
+            o += "[" + board[i][n] + "]"
+          }
+          console.log(o)
+        }
+      }
+      document.addEventListener("DOMContentLoaded", init)
     </script>
   </head>
   <body>
-
+    <canvas></canvas>
   </body>
 </html>
