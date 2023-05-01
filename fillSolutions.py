@@ -5,7 +5,7 @@ def sendModifyQuery (q):
     output = []
     try:
         with connect (
-            host = "localhost",
+            host = "127.0.0.1",
             user="tgbUser",
             password="1000onLich3ss!",
             database="tgbchess"
@@ -24,7 +24,7 @@ def sendGetQuery (q):
     output = []
     try:
         with connect (
-            host = "localhost",
+            host = "127.0.0.1",
             user="tgbUser",
             password="1000onLich3ss!",
             database="tgbchess"
@@ -39,7 +39,7 @@ def sendGetQuery (q):
 
 
 stockfish = Stockfish(path="/usr/games/stockfish") #this is the stockfish executable path on ubuntu for some reason!
-stockfish.update_engine_parameters({"Threads": 4, "Hash": 4096}) #make engine stronger
+#stockfish.update_engine_parameters({"Threads": 4, "Hash": 4096}) #make engine stronger
 
 rowsToUpdate = sendGetQuery("SELECT * FROM Puzzle WHERE Solutions IS NULL") #get each puzzle that doesn't have solutions yet
 c = 0
@@ -48,9 +48,16 @@ for row in rowsToUpdate: #each row is a tuple, values corresponding to columns a
     print("solving #" + str(c) + " out of " + str(len(rowsToUpdate)))
     pos = row[1].split(" ")
     stockfish.set_position(pos)
-    sol = stockfish.get_top_moves(3)
+    sol = stockfish.get_top_moves(18)
+    #print(sol)
+    #if its black to move, we want the lowest centipawn. white to move, the highest.
+    print(pos)
     formattedSolutions = ''
     for s in sol:
-        formattedSolutions += s['Move'] + ' '
+        if (abs(sol[0]['Centipawn']-s['Centipawn']) <= abs(0.33 * sol[0]['Centipawn']) or abs(sol[0]['Centipawn']-s['Centipawn']) < 50): # its white to move
+            formattedSolutions += s['Move'] + ' '
+            print(s['Centipawn'])
+        else:
+            print("Cut " + str(s['Centipawn']))
     tempquery = "UPDATE Puzzle SET Solutions = '" + formattedSolutions + "' WHERE PuzzleID = " + str(row[0])
     sendModifyQuery(tempquery)

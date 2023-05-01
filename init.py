@@ -26,8 +26,9 @@ def sendModifyQuery (q):
 
 #interface with stockfish python lib
 stockfish = Stockfish(path="/usr/games/stockfish")
-stockfish.update_engine_parameters({"Threads": 4, "Hash": 4096})
+#stockfish.update_engine_parameters({"Threads": 4, "Hash": 4096})
 #there are 18 initial moves you can make, 2 for each pawn plus both knights!
+sendModifyQuery("DELETE FROM Puzzle;")
 openingMoves = stockfish.get_top_moves(18)
 bestMoveScore = stockfish.get_top_moves(1)[0]['Centipawn']
 print(bestMoveScore)
