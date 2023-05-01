@@ -9,7 +9,8 @@
       dragY = -1
       async function getRandomPuzzle() {
         tag = document.getElementById("tagInput").value;
-        const response = await fetch("getRandomPuzzle.php?tag=" + tag);
+	color = document.getElementById("colorInput").value;
+        const response = await fetch("getRandomPuzzle.php?tag=" + tag + "&color=" + color);
         const resText = await response.text();
         return resText.split("<br>")
       }
@@ -304,5 +305,6 @@
     <div id="statusArea"></div>
     <button onclick="startNewPuzzle()">New Puzzle</button>
     <input id="tagInput" value="none" placeholder="write 'none' if no tag">
+    <input id="colorInput" value="either" placeholder="w/b/either">
   </body>
 </html>
