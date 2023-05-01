@@ -1,0 +1,28 @@
+USE tgbchess;
+UPDATE Puzzle SET tags = 'queenspawn' WHERE Position LIKE 'd2d4%';
+UPDATE Puzzle SET tags = 'kingspawn' WHERE Position LIKE 'e2e4%';
+UPDATE Puzzle SET tags = 'sicilian' WHERE Position LIKE 'e2e4 c7c5%';
+UPDATE Puzzle SET tags = 'french' WHERE Position LIKE 'e2e4 e7e6%';
+UPDATE Puzzle SET tags = 'ruylopez' WHERE Position LIKE 'e2e4 e7e5 g1f3 b8c6 f1b5%';
+UPDATE Puzzle SET tags = 'carokann' WHERE Position LIKE 'e2e4 c7c6%';
+UPDATE Puzzle SET tags = 'italian' WHERE Position LIKE 'e2e4 e7e5 g1f3 b8c6 f1c4%';
+UPDATE Puzzle SET tags = 'scandinavian' WHERE Position LIKE 'e2e4 d7d5%';
+UPDATE Puzzle SET tags = 'pirc' WHERE Position LIKE 'e2e4 d7d6 d2d4 g8f6%';
+UPDATE Puzzle SET tags = 'alekhine' WHERE Position LIKE 'e2e4 g8f6%';
+UPDATE Puzzle SET tags = 'kingsgambit' WHERE Position LIKE 'e2e4 e7e5 f2f4%';
+UPDATE Puzzle SET tags = 'scotch' WHERE Position LIKE 'e2e4 e7e5 g1f3 b8c6 d2d4%';
+UPDATE Puzzle SET tags = 'vienna' WHERE Position LIKE 'e2e4 e7e5 b1c3%';
+
+UPDATE Puzzle SET tags = 'queensgambit' WHERE Position LIKE 'd2d4 d7d5 c2c4%';
+UPDATE Puzzle SET tags = 'slav' WHERE Position LIKE 'd2d4 d7d5 c2c4 c7c6%';
+UPDATE Puzzle SET tags = 'kingsindian' WHERE Position LIKE 'd2d4 g8f6 c2c4 g7g6%';
+UPDATE Puzzle SET tags = 'nimzoindian' WHERE Position LIKE 'd2d4 g8f6 c2c4 e7e6 b1c3 f8b4%';
+UPDATE Puzzle SET tags = 'queensindian' WHERE Position LIKE 'd2d4 g8f6 c2c4 e7e6 g1f3 b7b6%';
+UPDATE Puzzle SET tags = 'catalan' WHERE Position LIKE 'd2d4 g8f6 c2c4 e7e6 g2g3%';
+UPDATE Puzzle SET tags = 'bogoindian' WHERE Position LIKE 'd2d4 g8f6 c2c4 e7e6 g1f3 f8b4%';
+UPDATE Puzzle SET tags = 'grunfeld' WHERE Position LIKE 'd2d4 g8f6 c2c4 g7g6 b1c3 d7d5%';
+UPDATE Puzzle SET tags = 'dutch' WHERE Position LIKE 'd2d4 f7f5%';
+UPDATE Puzzle SET tags = 'trompowsky' WHERE Position LIKE 'd2d4 g8f6 c1c5%';
+UPDATE Puzzle SET tags = 'benko' WHERE Position LIKE 'd2d4 g8f6 c2c4 c7c5 d4d5%';
+UPDATE Puzzle SET tags = 'london' WHERE Position LIKE 'd2d4 d7d5 c1f4 g8f6 g1f3%';
+UPDATE Puzzle SET tags = 'benoni' WHERE Position LIKE 'd2d4 g8f6 c2c4 c7c5 d4d5 f7f6%';

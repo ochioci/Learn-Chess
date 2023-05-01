@@ -39,16 +39,16 @@ def sendGetQuery (q):
 
 
 stockfish = Stockfish(path="/usr/games/stockfish") #this is the stockfish executable path on ubuntu for some reason!
-#stockfish.update_engine_parameters({"Threads": 4, "Hash": 4096}) #make engine stronger
+stockfish.update_engine_parameters({"Threads": 4, "Hash": 4096}) #make engine stronger
 
-rowsToUpdate = sendGetQuery("SELECT * FROM Puzzle WHERE Solutions IS NULL") #get each puzzle that doesn't have solutions yet
+rowsToUpdate = sendGetQuery("SELECT * FROM Puzzle WHERE Solutions IS NULL ORDER BY rand()") #get each puzzle that doesn't have solutions yet
 c = 0
 for row in rowsToUpdate: #each row is a tuple, values corresponding to columns at their index
     c+=1
     print("solving #" + str(c) + " out of " + str(len(rowsToUpdate)))
     pos = row[1].split(" ")
     stockfish.set_position(pos)
-    sol = stockfish.get_top_moves(18)
+    sol = stockfish.get_top_moves(8)
     #print(sol)
     #if its black to move, we want the lowest centipawn. white to move, the highest.
     print(pos)
