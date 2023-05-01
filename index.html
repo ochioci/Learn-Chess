@@ -270,6 +270,8 @@
           board[selected.row][selected.col].occupier = {"type": "none", "color": "none"}
           handleAnswer(selected.row, selected.col, releasedRow, releasedCol)
           selected = 'none'
+        } else {
+          selected = 'none'
         }
       }
 
