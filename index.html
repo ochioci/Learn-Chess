@@ -3,6 +3,48 @@
   <head>
     <meta charset="utf-8">
     <title>chess puzzles</title>
+    <style>
+      body {
+        display: grid;
+        grid-template-columns: 10vw 40vw 40vw 10vw;
+        grid-template-rows: 30vh 30vh 30vh;
+      }
+      canvas {
+        grid-row-start: 1;
+        grid-row-end: 3;
+        grid-column-start: 2;
+        grid-column-end: 2;
+        border: 3px solid black;
+      }
+      /* #statusArea {
+        grid-row-start: 2;
+        grid-row-end: 2;
+        grid-column-start: 3;
+        grid-column-end: 3;
+      }
+      #tagInput {
+        grid-row-start: 3;
+        grid-row-end: 3;
+        grid-column-start: 3;
+        grid-column-end: 3;
+      }
+      #colorInput {
+        grid-row-start: 3;
+        grid-row-end: 3;
+        grid-column-start: 3;
+        grid-column-end: 3;
+      } */
+      .submitButton {
+
+      }
+      .inputContainer {
+        background-color: green;
+        grid-row-start: 3;
+        grid-row-end: 3;
+        grid-column-start: 3;
+        grid-column-end: 3;
+      }
+    </style>
     <script>
       selected = 'none'
       dragX = -1
@@ -304,9 +346,11 @@
   </head>
   <body>
     <canvas style="margin:5vh;"></canvas>
-    <div id="statusArea"></div>
-    <button onclick="startNewPuzzle()">New Puzzle</button>
-    <input id="tagInput" value="none" placeholder="write 'none' if no tag">
-    <input id="colorInput" value="either" placeholder="w/b/either">
+    <div id="statusArea">Let's Play</div>
+    <span class="inputContainer">
+      <input id="tagInput" value="none" placeholder="write 'none' if no tag">
+      <input id="colorInput" value="either" placeholder="w/b/either">
+      <button class="submitButton" onclick="startNewPuzzle()">New Puzzle</button>
+    </span>
   </body>
 </html>
