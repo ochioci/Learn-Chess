@@ -8,7 +8,8 @@
       dragX = -1
       dragY = -1
       async function getRandomPuzzle() {
-        const response = await fetch("getRandomPuzzle.php");
+        tag = document.getElementById("tagInput").value;
+        const response = await fetch("getRandomPuzzle.php?tag=" + tag);
         const resText = await response.text();
         return resText.split("<br>")
       }
@@ -24,6 +25,7 @@
         puzzleData = ''
         selected = 'none'
         statusArea = document.getElementById("statusArea")
+        
         //init canvas stuff
 
         canvas = document.querySelector("canvas")
@@ -301,5 +303,6 @@
     <canvas style="margin:5vh;"></canvas>
     <div id="statusArea"></div>
     <button onclick="startNewPuzzle()">New Puzzle</button>
+    <input id="tagInput" value="none" placeholder="write 'none' if no tag">
   </body>
 </html>
