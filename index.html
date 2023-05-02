@@ -414,7 +414,7 @@
         console.log(e)
         let x = e.pageX - document.querySelector('canvas').offsetLeft
         let y = e.pageY - document.querySelector('canvas').offsetTop
-        console.log(x,y)
+        console.log(x,y, e.pageX, e.pageY)
         // console.log('abcdefgh'.substring(Math.floor(e.clientX / (canvas.width/8))-1, Math.floor(e.clientX / (canvas.width/8)))) //selected file
         let clickedCol = Math.floor(x/ (document.querySelector('canvas').height/8))
         let clickedRow = Math.floor(y / (document.querySelector('canvas').width/8))
