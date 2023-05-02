@@ -115,12 +115,19 @@
         0% {background-color: #7a918e;}
         100% {background-color: #35403e;}
       }
-      /* #statusArea {
-        grid-row-start: 2;
+      #statusArea {
+        grid-row-start: 1;
         grid-row-end: 2;
-        grid-column-start: 3;
-        grid-column-end: 3;
-      } */
+        color: #35403e;
+        /* background-color: #7a918e; */
+        /* border: 5px solid #35403e; */
+        border-radius: 10px;
+        /* padding: auto; */
+        font-size: 30pt;
+        text-align: center;
+        margin-top: auto;
+        margin-bottom: auto;
+      }
       #tagInput {
         grid-row-start: 1;
         grid-row-end: 2;
@@ -226,7 +233,7 @@
       }
 
       async function startNewPuzzle() {
-        statusArea.innerText = ''
+        statusArea.innerText = 'Drag and drop to move!'
         board = []
         //create 2d array that will represent the board
         //bottom left (aka [7][0]) should be white!
@@ -478,10 +485,11 @@
   </head>
   <body>
     <span class="boardArea">
+      <div id="statusArea">Let's Play</div>
       <canvas></canvas>
     </span>
     
-    <div id="statusArea">Let's Play</div>
+    
     <span class="inputContainer">
       <!-- <span class="tagLabel">Opening</span>
       <span class="colorLabel">Color</span> -->
