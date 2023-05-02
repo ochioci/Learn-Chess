@@ -5,6 +5,10 @@
     <title>chess puzzles</title>
     <style>
       @font-face {
+        font-family: "chess";
+        src:url("MAGNFONT.TTF")
+      }
+      @font-face {
         font-family: "SimplyMonoBook";
         src:url('SimplyMono-Book.ttf')
       }
@@ -356,10 +360,10 @@
       function drawHover() {
         if (selected != 'none') {
           let ocp = board[selected.row][selected.col].occupier.type
-          let pieceUnicode = ((ocp=="king")?'\u{2654}':(ocp=="queen")?'\u{2655}':(ocp=="rook")?'\u{2656}':(ocp=="bishop")?'\u{2657}':(ocp=="knight")?'\u{2658}':'\u{2659}')
-          ctx.font = (canvas.width/8).toString() + "px serif"
-          ctx.fillStyle = board[selected.row][selected.col].occupier.color == "w" ? "white" : "black";
-          ctx.fillText(pieceUnicode, dragX, dragY)
+          let pieceUnicode = ((ocp=="king")?'l':(ocp=="queen")?'w':(ocp=="rook")?'t':(ocp=="bishop")?'v':(ocp=="knight")?'m':'o')
+          ctx.font = (canvas.width/8).toString() + "px chess"
+          ctx.fillStyle = board[selected.row][selected.col].occupier.color == "w" ? "#d0f2ec" : "#2e3d3a";
+          ctx.fillText(pieceUnicode, dragX - (canvas.width/16), dragY + (canvas.height / 16))
         }
 
       }
@@ -409,12 +413,12 @@
               if (board[i][n].occupier.type != "none") {
                 ctx.fillStyle = board[i][n].occupier.color == "w" ? "#d0f2ec" : "#2e3d3a";
                 let drawX = (n * (canvas.width/8)) + (canvas.width/96)
-                let drawY = (i * (canvas.height / 8)) + (canvas.height/8) - (canvas.height/64)
+                let drawY = (i * (canvas.height / 8)) + (canvas.height/8) - (canvas.height/32)
                 let pieceUnicode = 'x'
                 let ocp = board[i][n].occupier.type
-                pieceUnicode = ((ocp=="king")?'\u{2654}':(ocp=="queen")?'\u{2655}':(ocp=="rook")?'\u{2656}':(ocp=="bishop")?'\u{2657}':(ocp=="knight")?'\u{2658}':'\u{2659}') //holy shit this fucking works
+                pieceUnicode = ((ocp=="king")?'l':(ocp=="queen")?'w':(ocp=="rook")?'t':(ocp=="bishop")?'v':(ocp=="knight")?'m':'o') //holy shit this fucking works
 
-                ctx.font = (canvas.width/8).toString() + "px serif"
+                ctx.font = (canvas.width/10).toString() + "px chess"
                 if (selected != 'none') {
                   if (!(selected.row == i && selected.col == n)) {
                     ctx.fillText(pieceUnicode, drawX, drawY)
@@ -432,12 +436,12 @@
               if (board[i][n].occupier.type != "none") {
                 ctx.fillStyle = board[i][n].occupier.color == "w" ? "#d0f2ec" : "#2e3d3a";
                 let drawX = ((7-n) * (canvas.width/8)) + (canvas.width/96)//we basically gotta flip the board horizontically and vertically to see black's pov
-                let drawY = ((7-i) * (canvas.height / 8)) + (canvas.height/8)- (canvas.height/64)
+                let drawY = ((7-i) * (canvas.height / 8)) + (canvas.height/8)- (canvas.height/80)
                 let pieceUnicode = 'x'
                 let ocp = board[i][n].occupier.type
-                pieceUnicode = ((ocp=="king")?'\u{2654}':(ocp=="queen")?'\u{2655}':(ocp=="rook")?'\u{2656}':(ocp=="bishop")?'\u{2657}':(ocp=="knight")?'\u{2658}':'\u{2659}') //holy shit this fucking works
+                pieceUnicode = ((ocp=="king")?'l':(ocp=="queen")?'w':(ocp=="rook")?'t':(ocp=="bishop")?'v':(ocp=="knight")?'m':'o')  //holy shit this fucking works
 
-                ctx.font = (canvas.width/8).toString() + "px serif"
+                ctx.font = (canvas.width/10).toString() + "px chess"
                 if (selected != 'none') {
                   if (!(selected.row == i && selected.col == n)) {
                     ctx.fillText(pieceUnicode, drawX, drawY)
@@ -476,6 +480,8 @@
         console.log(e)
         let x = Math.max(e.pageX - canvas.getBoundingClientRect().left - (window.innerWidth * 0.01), 0)
         let y = Math.max(e.pageY - canvas.getBoundingClientRect().top - (window.innerWidth * 0.01), 0)
+        dragX = x
+        dragY = y
         console.log(x,y, e.pageX, e.pageY)
         // console.log('abcdefgh'.substring(Math.floor(e.clientX / (canvas.width/8))-1, Math.floor(e.clientX / (canvas.width/8)))) //selected file
         let clickedCol = Math.floor(x/ (document.querySelector('canvas').height/8))
