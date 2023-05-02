@@ -403,16 +403,16 @@
 
       function handleMouseMove(e) {
         if (selected != 'none') {
-          dragX = e.clientX - canvas.getBoundingClientRect().left
-          dragY = e.clientY - canvas.getBoundingClientRect().top
+          dragX = e.offsetX
+          dragY = e.offsetY
           // console.log(dragX, dragY)
         }
       }
 
       function handleMouseDown(e) {
         console.log(e)
-        let x = e.clientX - canvas.getBoundingClientRect().left
-        let y = e.clientY - canvas.getBoundingClientRect().top
+        let x = e.offsetX
+        let y = e.offsetY
         // console.log('abcdefgh'.substring(Math.floor(e.clientX / (canvas.width/8))-1, Math.floor(e.clientX / (canvas.width/8)))) //selected file
         let clickedCol = Math.floor(x/ (canvas.height/8))
         let clickedRow = Math.floor(y / (canvas.width/8))
@@ -430,8 +430,8 @@
       }
 
       function handleMouseUp(e) {
-        let x = e.clientX - canvas.getBoundingClientRect().left
-        let y = e.clientY - canvas.getBoundingClientRect().top
+        let x = e.offsetX
+        let y = e.offsetY
         let releasedCol = Math.floor(x/ (canvas.height/8))
         let releasedRow = Math.floor(y / (canvas.width/8))
         if (flipBoard) {
