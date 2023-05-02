@@ -403,8 +403,8 @@
 
 
       function handleMouseMove(e) {
-        dragX = e.pageX - canvas.offsetLeft - document.getElementById('boardArea').offsetLeft
-          dragY = e.pageY - canvas.offsetTop - document.getElementById('boardArea').offsetTop
+        dragX = e.pageX - canvas.offsetLeft
+          dragY = e.pageY - canvas.offsetTop
           console.log(dragX, dragY)
         if (selected != 'none') {
           dragX = e.pageX - canvas.offsetLeft - document.getElementById('boardArea').offsetLeft
