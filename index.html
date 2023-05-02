@@ -55,7 +55,7 @@
       canvas {
         grid-row-start: 2;
         aspect-ratio: 1/1;
-        width: 95%;
+        /* width: 95%; */
         margin-top: auto;
         margin-bottom: 0;
         margin-left: auto;
@@ -63,7 +63,7 @@
         border: 1vw solid #35403e;
         border-radius: 10px;
       }
-      
+
       button:hover {
         animation: hoverAnimateButton 0.5s forwards;
         /* animation-duration: 0.5s; */
@@ -90,14 +90,14 @@
         animation: buttonAnimateClick 0.1s forwards;
       }
 
-/* 
+/*
       button {
         animation-name: unhoverAnimateButton;
         animation-duration: 0.5s forwards;
       } */
 
       @keyframes buttonAnimateClick {
-        0% {color: #b6ccc8; border: 5px solid #35403e; background-color: #35403e;} 
+        0% {color: #b6ccc8; border: 5px solid #35403e; background-color: #35403e;}
         100% {color: #ffffff; border: 7px solid #35403e; background-color: #35403e;}
       }
 
@@ -126,14 +126,14 @@
         grid-row-end: 2;
         grid-column-start: 2;
         grid-column-end: 2;
-        
+
       }
       #colorInput {
         grid-row-start: 1;
         grid-row-end: 2;
         grid-column-start: 3;
         grid-column-end: 3;
-        
+
 
       }
       .submitButton {
@@ -190,6 +190,13 @@
         return resText.split("<br>")
       }
 
+      function debug(e) {
+        let canvas=document.querySelector('canvas')
+        console.log("canvas w/h", canvas.width, canvas.height)
+        console.log(Math.max(e.pageX - canvas.getBoundingClientRect().left - (window.innerWidth * 0.01), 0))
+        console.log(Math.max(e.pageY - canvas.getBoundingClientRect().top - (window.innerWidth * 0.01), 0))
+      }
+
       async function init() {
         frameDelay = 10 //delay between game loop updates
         selectedStart='none' //square to move piece from
@@ -201,15 +208,16 @@
         puzzleData = ''
         selected = 'none'
         statusArea = document.getElementById("statusArea")
-        
+
         //init canvas stuff
 
         canvas = document.querySelector("canvas")
         canvas.addEventListener("mousedown", handleMouseDown)
         canvas.addEventListener("mouseup", handleMouseUp)
         canvas.addEventListener("mousemove", handleMouseMove)
-        canvas.width = (window.innerHeight * 0.8)
-        canvas.height = (window.innerHeight * 0.8)
+        canvas.addEventListener("mousemove", debug)
+        canvas.width = (window.innerWidth * 0.35)
+        canvas.height = (window.innerWidth * 0.35)
         ctx = canvas.getContext("2d");
 
         //on canvas
@@ -404,16 +412,16 @@
 
       function handleMouseMove(e) {
         if (selected != 'none') {
-          dragX = e.pageX - document.querySelector('canvas').offsetLeft
-          dragY = e.pageY - document.querySelector('canvas').offsetTop
+          dragX = Math.max(e.pageX - canvas.getBoundingClientRect().left - (window.innerWidth * 0.01), 0)
+          dragY = Math.max(e.pageY - canvas.getBoundingClientRect().top - (window.innerWidth * 0.01), 0)
           // console.log(dragX, dragY)
         }
       }
 
       function handleMouseDown(e) {
         console.log(e)
-        let x = e.pageX - document.querySelector('canvas').offsetLeft
-        let y = e.pageY - document.querySelector('canvas').offsetTop
+        let x = Math.max(e.pageX - canvas.getBoundingClientRect().left - (window.innerWidth * 0.01), 0)
+        let y = Math.max(e.pageY - canvas.getBoundingClientRect().top - (window.innerWidth * 0.01), 0)
         console.log(x,y, e.pageX, e.pageY)
         // console.log('abcdefgh'.substring(Math.floor(e.clientX / (canvas.width/8))-1, Math.floor(e.clientX / (canvas.width/8)))) //selected file
         let clickedCol = Math.floor(x/ (document.querySelector('canvas').height/8))
@@ -432,8 +440,8 @@
       }
 
       function handleMouseUp(e) {
-        let x = e.pageX - document.querySelector('canvas').offsetLeft
-        let y = e.pageY - document.querySelector('canvas').offsetTop
+        let x = Math.max(e.pageX - canvas.getBoundingClientRect().left - (window.innerWidth * 0.01), 0)
+        let y = Math.max(e.pageY - canvas.getBoundingClientRect().top - (window.innerWidth * 0.01), 0)
         let releasedCol = Math.floor(x/ (document.querySelector('canvas').height/8))
         let releasedRow = Math.floor(y / (document.querySelector('canvas').width/8))
         if (flipBoard) {
@@ -484,7 +492,7 @@
     <span class="boardArea" id="boardArea">
       <canvas></canvas>
     </span>
-    
+
     <div id="statusArea">Let's Play</div>
     <span class="inputContainer">
       <!-- <span class="tagLabel">Opening</span>
