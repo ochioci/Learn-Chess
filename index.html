@@ -259,6 +259,8 @@
       }
 
       async function startNewPuzzle() {
+        lastMoveFrom = {}
+        lastMoveTo = {}
         incorrect = false
         statusArea.innerText = ''
         board = []
@@ -379,6 +381,22 @@
             ctx.fillStyle = board[i][n].isDarkSquare ? "darkgreen" : "lightgray";
             let drawX = n * (canvas.width/8)
             let drawY = i * (canvas.height / 8)
+
+            if (!flipBoard && i == lastMoveFrom.row && n == lastMoveFrom.col) {
+              ctx.fillStyle = 'yellow'
+            }
+
+            if (flipBoard && i == 7-lastMoveFrom.row && n == 7-lastMoveFrom.col) {
+              ctx.fillStyle = 'yellow'
+            }
+
+            if (!flipBoard && i == lastMoveTo.row && n == lastMoveTo.col) {
+              ctx.fillStyle = 'yellow'
+            }
+
+            if (flipBoard && i == 7-lastMoveTo.row && n == 7-lastMoveTo.col) {
+              ctx.fillStyle = 'yellow'
+            }
             ctx.fillRect(drawX, drawY, canvas.width/8, canvas.height/8)
           }
         }
@@ -449,6 +467,8 @@
           board[lastMoveFrom.row][lastMoveFrom.col].occupier = board[lastMoveTo.row][lastMoveTo.col].occupier
           board[lastMoveTo.row][lastMoveTo.col].occupier = {'type': 'none', "color": 'none'}
           incorrect = false;
+          lastMoveFrom = {}
+          lastMoveTo = {}
         }
         if (solved) {
           startNewPuzzle();
