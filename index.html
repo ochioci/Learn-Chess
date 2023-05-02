@@ -403,7 +403,6 @@
 
 
       function handleMouseMove(e) {
-        console.log(dragX, dragY)
         if (selected != 'none') {
           dragX = e.pageX - canvas.offsetLeft - document.getElementById('boardArea').offsetLeft
           dragY = e.pageY - canvas.offsetTop - document.getElementById('boardArea').offsetTop
@@ -413,8 +412,8 @@
 
       function handleMouseDown(e) {
         console.log(e)
-        let x = e.offsetX
-        let y = e.offsetY
+        let x = e.pageX - canvas.offsetLeft - document.getElementById('boardArea').offsetLeft
+        let y = e.pageY - canvas.offsetTop - document.getElementById('boardArea').offsetTop
         console.log(x,y)
         // console.log('abcdefgh'.substring(Math.floor(e.clientX / (canvas.width/8))-1, Math.floor(e.clientX / (canvas.width/8)))) //selected file
         let clickedCol = Math.floor(x/ (canvas.height/8))
@@ -433,8 +432,8 @@
       }
 
       function handleMouseUp(e) {
-        let x = e.offsetX
-        let y = e.offsetY
+        let x = e.pageX - canvas.offsetLeft - document.getElementById('boardArea').offsetLeft
+        let y = e.pageY - canvas.offsetTop - document.getElementById('boardArea').offsetTop
         let releasedCol = Math.floor(x/ (canvas.height/8))
         let releasedRow = Math.floor(y / (canvas.width/8))
         if (flipBoard) {
