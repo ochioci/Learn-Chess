@@ -182,6 +182,7 @@
       dragX = -1
       dragY = -1
       async function getRandomPuzzle() {
+        solved = false
         tag = document.getElementById("tagInput").value;
 	color = document.getElementById("colorInput").value;
         const response = await fetch("getRandomPuzzle.php?tag=" + tag + "&color=" + color);
@@ -402,9 +403,12 @@
 
 
       function handleMouseMove(e) {
+        dragX = e.pageX - canvas.offsetLeft - document.getElementsByClassName('boardArea').offsetTop
+        dragY = e.pageY - canvas.offsetTop - document.getElementByClassName('boardArea').offsetTop
+        console.log(dragX, dragY)
         if (selected != 'none') {
-          dragX = e.offsetX
-          dragY = e.offsetY
+          dragX = e.pageX - canvas.offsetLeft - document.getElementsByClassName('boardArea').offsetTop
+          dragY = e.pageY - canvas.offsetTop - document.getElementByClassName('boardArea').offsetTop
           // console.log(dragX, dragY)
         }
       }
@@ -458,6 +462,7 @@
         let eToCol = 'abcdefgh'.substring(toCol, toCol+1)
         if (solutions.includes(eFromCol+eFromRow+eToCol+eToRow)) {
           statusArea.innerText = "Correct!"
+          solved = true;
         } else {
           statusArea.innerText = "Incorrect :("
         }
