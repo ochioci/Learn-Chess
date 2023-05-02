@@ -199,8 +199,11 @@
       }
     </style>
     <script>
+      lastMoveFrom = {}
+      lastMoveTo = {}
       selected = 'none'
       dragX = -1
+      incorrect = false;
       dragY = -1
       async function getRandomPuzzle() {
         solved = false
@@ -236,7 +239,7 @@
         canvas.addEventListener("mousedown", handleMouseDown)
         canvas.addEventListener("mouseup", handleMouseUp)
         canvas.addEventListener("mousemove", handleMouseMove)
-        canvas.addEventListener("mousemove", debug)
+        // canvas.addEventListener("mousemove", debug)
         canvas.width = (window.innerWidth * 0.35)
         canvas.height = (window.innerWidth * 0.35)
         ctx = canvas.getContext("2d");
@@ -256,6 +259,7 @@
       }
 
       async function startNewPuzzle() {
+        incorrect = false
         statusArea.innerText = ''
         board = []
         //create 2d array that will represent the board
@@ -440,6 +444,15 @@
       }
 
       function handleMouseDown(e) {
+        if (incorrect) {
+          selected = 'none'
+          board[lastMoveFrom.row][lastMoveFrom.col].occupier = board[lastMoveTo.row][lastMoveTo.col].occupier
+          board[lastMoveTo.row][lastMoveTo.col].occupier = {'type': 'none', "color": 'none'}
+          incorrect = false;
+        }
+        if (solved) {
+          startNewPuzzle();
+        }
         console.log(e)
         let x = Math.max(e.pageX - canvas.getBoundingClientRect().left - (window.innerWidth * 0.01), 0)
         let y = Math.max(e.pageY - canvas.getBoundingClientRect().top - (window.innerWidth * 0.01), 0)
@@ -454,8 +467,12 @@
 
 
         if ((flipBoard && board[clickedRow][clickedCol].occupier.color == "b") || (!flipBoard && board[clickedRow][clickedCol].occupier.color=="w")) {
-          selected = {"row": clickedRow, "col": clickedCol}
-          console.log(selected)
+          if (solved == false) {
+            selected = {"row": clickedRow, "col": clickedCol}
+            lastMoveFrom = selected
+            console.log(lastMoveFrom)
+            // console.log(selected)
+          }
           //continue from here! add dragging and dropping pieces
         }
       }
@@ -472,6 +489,7 @@
         let friendlyColor = flipBoard ? "b" : "w"; //opposing piece color based off if board is flipped
         console.log("moved from ", selected.row, selected.col, " to ", releasedRow, releasedCol)
         if (board[releasedRow][releasedCol].occupier.color != friendlyColor && selected != 'none') {
+          lastMoveTo = {"row": releasedRow, "col": releasedCol}
           board[releasedRow][releasedCol].occupier = board[selected.row][selected.col].occupier
           board[selected.row][selected.col].occupier = {"type": "none", "color": "none"}
           handleAnswer(selected.row, selected.col, releasedRow, releasedCol)
@@ -479,6 +497,7 @@
         } else {
           selected = 'none'
         }
+        console.log(lastMoveTo)
       }
 
       function handleAnswer(fromRow, fromCol, toRow, toCol) {
@@ -491,6 +510,7 @@
           solved = true;
         } else {
           statusArea.innerText = "Incorrect :("
+          incorrect = true
         }
       }
 
