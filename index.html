@@ -4,45 +4,177 @@
     <meta charset="utf-8">
     <title>chess puzzles</title>
     <style>
+      @font-face {
+        font-family: "SimplyMonoBook";
+        src:url('SimplyMono-Book.ttf')
+      }
+      * {
+        font-family: "SimplyMonoBook";
+      }
+      .inputContainer * {
+        margin: 10%;
+      }
+      html {
+        height: 100%;
+      }
       body {
+        margin: 0;
+        background-color: #a5c4bf;
         display: grid;
+        grid-gap: 1vw;
         grid-template-columns: 10vw 40vw 40vw 10vw;
         grid-template-rows: 30vh 30vh 30vh;
       }
-      canvas {
+      select {
+        border-radius: 10px;
+        font-size: 1vw;
+        border: 5px solid #35403e;
+        background-color: #7a918e;
+        text-align: center;
+        color: #b6ccc8;
+        padding: 0;
+      }
+      button {
+        border-radius: 10px;
+        font-size: 1.5vw;
+        border: 5px solid #35403e;
+        background-color: #7a918e;
+        color: #b6ccc8;
+      }
+      .boardArea {
         grid-row-start: 1;
-        grid-row-end: 3;
+        grid-row-end: 4;
         grid-column-start: 2;
         grid-column-end: 2;
-        border: 3px solid black;
+        background-color: #96b0ac;
+        display: grid;
+        grid-template-rows: auto auto;
+        grid-template-columns: 100%;
+      }
+
+      canvas {
+        grid-row-start: 2;
+        aspect-ratio: 1/1;
+        width: 95%;
+        margin-top: auto;
+        margin-bottom: 0;
+        margin-left: auto;
+        margin-right: auto;
+        border: 1vw solid #35403e;
+        border-radius: 10px;
+      }
+      
+      button:hover {
+        animation: hoverAnimateButton 0.5s forwards;
+        /* animation-duration: 0.5s; */
+      }
+      button:not(:hover) {
+        animation: unhoverAnimateButton 0.5s forwards;
+        /* animation-duration: 0.5s; */
+      }
+
+      button:hover:active {
+        animation: buttonAnimateClick 0.1s forwards;
+      }
+
+      select:hover {
+        animation: hoverAnimateButton 0.5s forwards;
+        /* animation-duration: 0.5s; */
+      }
+      select:not(:hover) {
+        animation: unhoverAnimateButton 0.5s forwards;
+        /* animation-duration: 0.5s; */
+      }
+
+      select:hover:active {
+        animation: buttonAnimateClick 0.1s forwards;
+      }
+
+/* 
+      button {
+        animation-name: unhoverAnimateButton;
+        animation-duration: 0.5s forwards;
+      } */
+
+      @keyframes buttonAnimateClick {
+        0% {color: #b6ccc8; border: 5px solid #35403e; background-color: #35403e;} 
+        100% {color: #ffffff; border: 7px solid #35403e; background-color: #35403e;}
+      }
+
+      @keyframes buttonAnimateUnclick {
+        0% {color: #ffffff; border: 7px solid #35403e;}
+        100% {color: #b6ccc8; border: 5px solid #35403e;}
+      }
+
+      @keyframes unhoverAnimateButton {
+        0% {background-color: #35403e;}
+        100% {background-color: #7a918e; color: #b6ccc8;}
+
+      }
+      @keyframes hoverAnimateButton {
+        0% {background-color: #7a918e;}
+        100% {background-color: #35403e;}
       }
       /* #statusArea {
         grid-row-start: 2;
         grid-row-end: 2;
         grid-column-start: 3;
         grid-column-end: 3;
-      }
+      } */
       #tagInput {
-        grid-row-start: 3;
-        grid-row-end: 3;
-        grid-column-start: 3;
-        grid-column-end: 3;
+        grid-row-start: 1;
+        grid-row-end: 2;
+        grid-column-start: 2;
+        grid-column-end: 2;
+        
       }
       #colorInput {
-        grid-row-start: 3;
-        grid-row-end: 3;
+        grid-row-start: 1;
+        grid-row-end: 2;
         grid-column-start: 3;
         grid-column-end: 3;
-      } */
-      .submitButton {
+        
 
       }
+      .submitButton {
+        /* margin-bottom: 1vw; */
+        grid-row-start: 1;
+        grid-row-end: 3;
+        grid-column-start: 1;
+        grid-column-end: 1;
+      }
       .inputContainer {
-        background-color: green;
+        border-radius: 10px;
+        grid-gap: 0.5vh;
+        background-color: #96b0ac;
         grid-row-start: 3;
         grid-row-end: 3;
         grid-column-start: 3;
         grid-column-end: 3;
+        display: grid;
+        grid-template-rows: 100%;
+        grid-template-columns: 50% 25% 25%;
+      }
+
+      .tagLabel {
+        grid-row: 1;
+        grid-column: 2;
+        font-size: 2vw;
+        margin-top: auto;
+        text-align: left;
+        margin-left: 0;
+        /* margin-bottom: auto; */
+        color: #35403e;
+      }
+
+      .colorLabel {
+        grid-row: 1;
+        grid-column: 3;
+        font-size: 2vw;
+        text-align: right;
+        margin-top: auto;
+        /* margin-bottom: auto; */
+        color: #35403e;
       }
     </style>
     <script>
@@ -75,8 +207,8 @@
         canvas.addEventListener("mousedown", handleMouseDown)
         canvas.addEventListener("mouseup", handleMouseUp)
         canvas.addEventListener("mousemove", handleMouseMove)
-        canvas.width = (window.innerHeight * 0.8)
-        canvas.height = (window.innerHeight * 0.8)
+        // canvas.width = (window.innerHeight * 0.8)
+        // canvas.height = (window.innerHeight * 0.8)
         ctx = canvas.getContext("2d");
 
         //on canvas
@@ -345,11 +477,48 @@
     </script>
   </head>
   <body>
-    <canvas style="margin:5vh;"></canvas>
+    <span class="boardArea">
+      <canvas></canvas>
+    </span>
+    
     <div id="statusArea">Let's Play</div>
     <span class="inputContainer">
-      <input id="tagInput" value="none" placeholder="write 'none' if no tag">
-      <input id="colorInput" value="either" placeholder="w/b/either">
+      <!-- <span class="tagLabel">Opening</span>
+      <span class="colorLabel">Color</span> -->
+      <!-- <input id="tagInput" value="none" placeholder="write 'none' if no tag"> -->
+      <select id="tagInput">
+        <option value="none" selected disabled>Opening</option>
+        <option value="none" >All openings</option>
+        <option value="queenspawn">Queen's Pawn Opening</option>
+        <option value="kingspawn">King's Pawn Opening</option>
+        <option value="dutch">Dutch Defense</option>
+        <option value="french">French Defense</option>
+        <option value="carokann">Caro-Kann Defense</option>
+        <option value="sicilian">Sicilian Defense</option>
+        <option value="scandinavian">Scandinavian Defense</option>
+        <option value="queensgambit">Queen's Gambit</option>
+        <option value="vienna">Vienna Game</option>
+        <option value="slav">Slav Defense</option>
+        <option value="kingsindian">King's Indian Defense</option>
+        <option value="alekhine">Alekhine's Defense</option>
+        <option value="pirc">Pirc Defense</option>
+        <option value="london">London System</option>
+        <option value="catalan">Catalan Opening</option>
+        <option value="benko">Benko Gambit</option>
+        <option value="ruylopez">Ruy Lopez Opening</option>
+        <option value="scotch">Scotch Game</option>
+        <option value="italian">Italian Game</option>
+        <option value="bogoindian">Bogo-Indian Defense</option>
+        <option value="nimzoindian">Nimzo-Indian Defense</option>
+        <option value="grunfeld">Grunfeld Defense</option>
+      </select>
+      <!-- <input id="colorInput" value="either" placeholder="w/b/either"> -->
+      <select id="colorInput">
+        <option value="either" selected disabled>Color</option>
+        <option value="either">Either</option>
+        <option value="w">White</option>
+        <option value="b">Black</option>
+      </select>
       <button class="submitButton" onclick="startNewPuzzle()">New Puzzle</button>
     </span>
   </body>
