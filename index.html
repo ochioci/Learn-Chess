@@ -431,10 +431,10 @@
 
         if (solved == false && ((flipBoard && board[clickedRow][clickedCol].occupier.color == "b") || (!flipBoard && board[clickedRow][clickedCol].occupier.color=="w"))) {
           selected = {"row": clickedRow, "col": clickedCol}
-          console.log(selected)
+          console.log("selected smth")
           //continue from here! add dragging and dropping pieces
         } else if (solved) {
-          seleted = 'none';
+          selected = 'none';
           startNewPuzzle();
         }
       }
