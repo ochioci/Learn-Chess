@@ -72,7 +72,6 @@
         border-radius: 10px;
         grid-gap: 0.5vh;
         background-color: #96b0ac;
-        display: grid;
         grid-template-rows: 100%;
         grid-template-columns: 50% 25% 25%;
       }
@@ -413,7 +412,7 @@
               if (board[i][n].occupier.type != "none") {
                 ctx.fillStyle = board[i][n].occupier.color == "w" ? "#d0f2ec" : "#2e3d3a";
                 let drawX = (n * (canvas.width/8)) + (canvas.width/96)
-                let drawY = (i * (canvas.height / 8)) + (canvas.height/8) - (canvas.height/32)
+                let drawY = (i * (canvas.height / 8)) + (canvas.height/8) - (canvas.height / 64)
                 let pieceUnicode = 'x'
                 let ocp = board[i][n].occupier.type
                 pieceUnicode = ((ocp=="king")?'l':(ocp=="queen")?'w':(ocp=="rook")?'t':(ocp=="bishop")?'v':(ocp=="knight")?'m':'o') //holy shit this fucking works
@@ -560,7 +559,12 @@
       <canvas></canvas>
     </span>
 
-    <span class="titleContainer"></span>
+    <span class="titleContainer">
+	<h2>TGBCHESS:</h2> 
+	<br>- Drag and drop to move
+	<br>- Click anywhere on the board to reset position / get new puzzle
+	<br>- A few openings don't yet have puzzles
+	</span>
     <span class="statusContainer"><div id="statusArea">Let's Play</div></span>
     <span class="inputContainer">
       <!-- <span class="tagLabel">Opening</span>
