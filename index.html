@@ -403,12 +403,12 @@
 
 
       function handleMouseMove(e) {
-        dragX = e.pageX - canvas.offsetLeft - document.getElementsByClassName('boardArea').offsetTop
-        dragY = e.pageY - canvas.offsetTop - document.getElementByClassName('boardArea').offsetTop
+        dragX = e.pageX - canvas.offsetLeft - document.getElementById('boardArea').offsetTop
+        dragY = e.pageY - canvas.offsetTop - document.getElementById('boardArea').offsetTop
         console.log(dragX, dragY)
         if (selected != 'none') {
-          dragX = e.pageX - canvas.offsetLeft - document.getElementsByClassName('boardArea').offsetTop
-          dragY = e.pageY - canvas.offsetTop - document.getElementByClassName('boardArea').offsetTop
+          dragX = e.pageX - canvas.offsetLeft - document.getElementById('boardArea').offsetTop
+          dragY = e.pageY - canvas.offsetTop - document.getElementById('boardArea').offsetTop
           // console.log(dragX, dragY)
         }
       }
