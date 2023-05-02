@@ -115,19 +115,12 @@
         0% {background-color: #7a918e;}
         100% {background-color: #35403e;}
       }
-      #statusArea {
-        grid-row-start: 1;
+      /* #statusArea {
+        grid-row-start: 2;
         grid-row-end: 2;
-        color: #35403e;
-        /* background-color: #7a918e; */
-        /* border: 5px solid #35403e; */
-        border-radius: 10px;
-        /* padding: auto; */
-        font-size: 30pt;
-        text-align: center;
-        margin-top: auto;
-        margin-bottom: auto;
-      }
+        grid-column-start: 3;
+        grid-column-end: 3;
+      } */
       #tagInput {
         grid-row-start: 1;
         grid-row-end: 2;
@@ -189,7 +182,6 @@
       dragX = -1
       dragY = -1
       async function getRandomPuzzle() {
-        solved = false;
         tag = document.getElementById("tagInput").value;
 	color = document.getElementById("colorInput").value;
         const response = await fetch("getRandomPuzzle.php?tag=" + tag + "&color=" + color);
@@ -234,7 +226,7 @@
       }
 
       async function startNewPuzzle() {
-        statusArea.innerText = 'Drag and drop to move!'
+        statusArea.innerText = ''
         board = []
         //create 2d array that will represent the board
         //bottom left (aka [7][0]) should be white!
@@ -429,13 +421,10 @@
         }
 
 
-        if (solved == false && ((flipBoard && board[clickedRow][clickedCol].occupier.color == "b") || (!flipBoard && board[clickedRow][clickedCol].occupier.color=="w"))) {
+        if ((flipBoard && board[clickedRow][clickedCol].occupier.color == "b") || (!flipBoard && board[clickedRow][clickedCol].occupier.color=="w")) {
           selected = {"row": clickedRow, "col": clickedCol}
-          console.log("selected smth")
+          console.log(selected)
           //continue from here! add dragging and dropping pieces
-        } else if (solved) {
-          selected = 'none';
-          startNewPuzzle();
         }
       }
 
@@ -467,8 +456,6 @@
         let eToCol = 'abcdefgh'.substring(toCol, toCol+1)
         if (solutions.includes(eFromCol+eFromRow+eToCol+eToRow)) {
           statusArea.innerText = "Correct!"
-          solved = true;
-          console.log('solved!')
         } else {
           statusArea.innerText = "Incorrect :("
         }
@@ -491,11 +478,10 @@
   </head>
   <body>
     <span class="boardArea">
-      <div id="statusArea">Let's Play</div>
       <canvas></canvas>
     </span>
     
-    
+    <div id="statusArea">Let's Play</div>
     <span class="inputContainer">
       <!-- <span class="tagLabel">Opening</span>
       <span class="colorLabel">Color</span> -->
