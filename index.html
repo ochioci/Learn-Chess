@@ -366,10 +366,10 @@
 
       function drawLabels () {
         for (let i = 0; i < 8; i++) {
-          ctx.font = (canvas.width/24).toString() + "px serif"
-          ctx.fillStyle = "blue";
+          ctx.font = (canvas.width/26).toString() + "px serif"
+          ctx.fillStyle = "#35403e";
           let alpha = flipBoard ? "hgfedcba" : "abcdefgh"
-          ctx.fillText(alpha.substring(i, i+1), ((canvas.width/8)*i) + canvas.width/12, canvas.height - (canvas.height/64))
+          ctx.fillText(alpha.substring(i, i+1), ((canvas.width/8)*i) + canvas.width/10, canvas.height - (canvas.height/64))
           let num = (!flipBoard ? 7 - i : i)+1
           ctx.fillText(num.toString(), canvas.width/64, ((canvas.height/8) * (i+1)) - (canvas.height/12))
         }
@@ -378,24 +378,24 @@
       function drawSquares() {
         for (let i = 0; i < 8; i++) {
           for (let n = 0; n < 8; n++) {
-            ctx.fillStyle = board[i][n].isDarkSquare ? "darkgreen" : "lightgray";
+            ctx.fillStyle = board[i][n].isDarkSquare ? "#739992" : "#96b0ac";
             let drawX = n * (canvas.width/8)
             let drawY = i * (canvas.height / 8)
 
             if (!flipBoard && i == lastMoveFrom.row && n == lastMoveFrom.col) {
-              ctx.fillStyle = 'yellow'
+              ctx.fillStyle = '#81d6a9'
             }
 
             if (flipBoard && i == 7-lastMoveFrom.row && n == 7-lastMoveFrom.col) {
-              ctx.fillStyle = 'yellow'
+              ctx.fillStyle = '#81d6a9'
             }
 
             if (!flipBoard && i == lastMoveTo.row && n == lastMoveTo.col) {
-              ctx.fillStyle = 'yellow'
+              ctx.fillStyle = '#81d6a9'
             }
 
             if (flipBoard && i == 7-lastMoveTo.row && n == 7-lastMoveTo.col) {
-              ctx.fillStyle = 'yellow'
+              ctx.fillStyle = '#81d6a9'
             }
             ctx.fillRect(drawX, drawY, canvas.width/8, canvas.height/8)
           }
@@ -407,9 +407,9 @@
           for (let i = 0; i < 8; i++) {
             for (let n = 0; n < 8; n++) {
               if (board[i][n].occupier.type != "none") {
-                ctx.fillStyle = board[i][n].occupier.color == "w" ? "white" : "black";
-                let drawX = (n * (canvas.width/8))
-                let drawY = (i * (canvas.height / 8)) + (canvas.height/8)
+                ctx.fillStyle = board[i][n].occupier.color == "w" ? "#d0f2ec" : "#2e3d3a";
+                let drawX = (n * (canvas.width/8)) + (canvas.width/96)
+                let drawY = (i * (canvas.height / 8)) + (canvas.height/8) - (canvas.height/64)
                 let pieceUnicode = 'x'
                 let ocp = board[i][n].occupier.type
                 pieceUnicode = ((ocp=="king")?'\u{2654}':(ocp=="queen")?'\u{2655}':(ocp=="rook")?'\u{2656}':(ocp=="bishop")?'\u{2657}':(ocp=="knight")?'\u{2658}':'\u{2659}') //holy shit this fucking works
@@ -430,9 +430,9 @@
           for (let i = 0; i < 8; i++) {
             for (let n = 0; n < 8; n++) {
               if (board[i][n].occupier.type != "none") {
-                ctx.fillStyle = board[i][n].occupier.color == "w" ? "white" : "black";
-                let drawX = ((7-n) * (canvas.width/8)) //we basically gotta flip the board horizontically and vertically to see black's pov
-                let drawY = ((7-i) * (canvas.height / 8)) + (canvas.height/8)
+                ctx.fillStyle = board[i][n].occupier.color == "w" ? "#d0f2ec" : "#2e3d3a";
+                let drawX = ((7-n) * (canvas.width/8)) + (canvas.width/96)//we basically gotta flip the board horizontically and vertically to see black's pov
+                let drawY = ((7-i) * (canvas.height / 8)) + (canvas.height/8)- (canvas.height/64)
                 let pieceUnicode = 'x'
                 let ocp = board[i][n].occupier.type
                 pieceUnicode = ((ocp=="king")?'\u{2654}':(ocp=="queen")?'\u{2655}':(ocp=="rook")?'\u{2656}':(ocp=="bishop")?'\u{2657}':(ocp=="knight")?'\u{2658}':'\u{2659}') //holy shit this fucking works
