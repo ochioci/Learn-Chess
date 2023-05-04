@@ -348,6 +348,31 @@
         solved = false;
       }
 
+      // function isMoveLegal(moveFromRow, moveFromCol, moveToRow, moveToCol) {
+      //   let movedPiece = board[moveFromRow][moveFromCol].occupier
+      //
+      //   if (movedPiece.type == "knight") {
+      //     if (!((Math.abs(moveFromRow-moveToRow) == 2 && Math.abs(moveFromCol - moveToCol) == 1) || (Math.abs(moveFromRow-moveToRow) == 1 && Math.abs(moveFromCol - moveToCol) == 2))) {
+      //       return false;
+      //     }
+      //   }
+      //
+      //   if (movedPiece.type == "rook") {
+      //
+      //   }
+      //
+      //   if (movedPiece.type == "pawn") {
+      //     if (movedPiece.color == "w") {
+      //       if (move)
+      //     }
+      //     else {
+      //
+      //     }
+      //   }
+      //
+      //   return true;
+      // }
+
       function gameLoop() {
         drawSquares() //draws the board's tiles
         drawPieces() //draws the board's pieces
@@ -560,7 +585,7 @@
     </span>
 
     <span class="titleContainer">
-	<h2>Chess Puzzles:</h2> 
+	<h2>Chess Puzzles:</h2>
 	<br>- Drag and drop to move
 	<br>- Click anywhere on the board to reset position / get new puzzle
 	<br>- A few openings don't yet have puzzles
