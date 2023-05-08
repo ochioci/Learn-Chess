@@ -46,6 +46,8 @@
         text-align: center;
         color: #b6ccc8;
         padding: 0;
+        max-width: 75%;
+        max-height: 75%
       }
       button {
         border-radius: 10px;
@@ -65,8 +67,9 @@
         grid-template-columns: 100%;
       }
       .statusContainer {
-        grid-column:3;
-        grid-row: 2;
+        grid-column-start:1;
+        grid-column-end: 3;
+        grid-row: 1;
         border-radius: 10px;
         grid-gap: 0.5vh;
         background-color: #96b0ac;
@@ -101,7 +104,7 @@
         animation: hoverAnimateButton 0.5s forwards;
         /* animation-duration: 0.5s; */
       }
-      button:not(:hover) {
+      button:not(:hCorrect!over) {
         animation: unhoverAnimateButton 0.5s forwards;
         /* animation-duration: 0.5s; */
       }
@@ -198,8 +201,13 @@
         grid-column-start: 3;
         grid-column-end: 3;
         display: grid;
-        grid-template-rows: 100%;
+        grid-template-rows: 50% 50%;
         grid-template-columns: 50% 25% 25%;
+      }
+
+      #maxSolutionsInput {
+        grid-row: 2;
+        grid-column: 3;
       }
 
       .tagLabel {
@@ -613,7 +621,7 @@
 	<br>- Click anywhere on the board to reset position / get new puzzle
 	<br>- A few openings don't yet have puzzles
 	</span>
-    <span class="statusContainer"><div id="statusArea">Let's Play</div></span>
+
     <span class="inputContainer">
       <!-- <span class="tagLabel">Opening</span>
       <span class="colorLabel">Color</span> -->
@@ -656,6 +664,7 @@
 
     <span class="controlsContainer">
       <input placeholder="max solutions" id="maxSolutionsInput" value="8">
+      <span class="statusContainer"><center id="statusArea">Let's Play</center></span>
     </span>
   </body>
 </html>
