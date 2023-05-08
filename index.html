@@ -38,6 +38,15 @@
         color: #b6ccc8;
         padding: 0;
       }
+      input {
+        border-radius: 10px;
+        font-size: 1vw;
+        border: 5px solid #35403e;
+        background-color: #7a918e;
+        text-align: center;
+        color: #b6ccc8;
+        padding: 0;
+      }
       button {
         border-radius: 10px;
         font-size: 1.5vw;
@@ -180,6 +189,19 @@
         grid-template-columns: 50% 25% 25%;
       }
 
+      .controlsContainer {
+        border-radius: 10px;
+        grid-gap: 0.5vh;
+        background-color: #96b0ac;
+        grid-row-start: 2;
+        grid-row-end: 2;
+        grid-column-start: 3;
+        grid-column-end: 3;
+        display: grid;
+        grid-template-rows: 100%;
+        grid-template-columns: 50% 25% 25%;
+      }
+
       .tagLabel {
         grid-row: 1;
         grid-column: 2;
@@ -212,7 +234,8 @@
         solved = false
         tag = document.getElementById("tagInput").value;
 	color = document.getElementById("colorInput").value;
-        const response = await fetch("getRandomPuzzle.php?tag=" + tag + "&color=" + color);
+  maxSolutions = document.getElementById("maxSolutionsInput").value;
+        const response = await fetch("getRandomPuzzle.php?tag=" + tag + "&color=" + color + "&maxSolutions=" + maxSolutions);
         const resText = await response.text();
         return resText.split("<br>")
       }
@@ -629,6 +652,10 @@
         <option value="b">Black</option>
       </select>
       <button class="submitButton" onclick="startNewPuzzle()">New Puzzle</button>
+    </span>
+
+    <span class="controlsContainer">
+      <input placeholder="max solutions" id="maxSolutionsInput" value="8">
     </span>
   </body>
 </html>
