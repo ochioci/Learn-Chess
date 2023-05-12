@@ -39,7 +39,7 @@ def sendGetQuery (q):
 
 
 stockfish = Stockfish(path="/usr/games/stockfish") #this is the stockfish executable path on ubuntu for some reason!
-stockfish.update_engine_parameters({"Threads": 4, "Hash": 4096}) #make engine stronger
+stockfish.update_engine_parameters({"Threads": 48, "Hash": 4096}) #make engine stronger
 
 rowsToUpdate = sendGetQuery("SELECT * FROM Puzzle WHERE Solutions IS NULL ORDER BY rand()") #get each puzzle that doesn't have solutions yet
 c = 0
@@ -48,13 +48,16 @@ for row in rowsToUpdate: #each row is a tuple, values corresponding to columns a
     print("solving #" + str(c) + " out of " + str(len(rowsToUpdate)))
     pos = row[1].split(" ")
     stockfish.set_position(pos)
-    sol = stockfish.get_top_moves(8)
+    sol = stockfish.get_top_moves(5)
     #print(sol)
     #if its black to move, we want the lowest centipawn. white to move, the highest.
     print(pos)
     formattedSolutions = ''
     for s in sol:
-        if (abs(sol[0]['Centipawn']-s['Centipawn']) <= abs(0.33 * sol[0]['Centipawn']) or abs(sol[0]['Centipawn']-s['Centipawn']) < 50): # its white to move
+        print(s)
+        if (type(s['Centipawn']) == type(None) or s['Centipawn'] == "none" or s['Centipawn'] == "None"):
+            print("Move leads to mate!")
+        elif (abs(sol[0]['Centipawn']-s['Centipawn']) <= abs(0.33 * sol[0]['Centipawn']) or abs(sol[0]['Centipawn']-s['Centipawn']) < 50): # its white to move
             formattedSolutions += s['Move'] + ' '
             print(s['Centipawn'])
         else:
