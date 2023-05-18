@@ -251,6 +251,11 @@
         font-size: 30pt;
         /* color: #b6ccc8 */
       }
+
+      .logoutButton {
+        justify-content: center;
+        display: inline-flex;
+      }
     </style>
     <script>
       lastMoveFrom = {}
@@ -640,6 +645,7 @@
   <body>
     <span class="boardArea" id="boardArea">
       <center id="sessionInfoArea">Logged in as: </center>
+      
       <canvas></canvas>
     </span>
 
@@ -692,7 +698,9 @@
     </span>
 
     <span class="controlsContainer">
+      <form class="logoutButton" action="../login/logout.php"><input type="submit" value="Log out"></form>
       <span class="difficultyContainer">
+        
           <center class="maxSolutionsLabel">Difficulty</center>
             <input type="range" max=8 min=1 placeholder="max solutions" id="maxSolutionsInput" value="8">
       </span>

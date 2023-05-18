@@ -18,6 +18,8 @@ if ($result = mysqli_query($conn, $query)) {
 				session_start();
 				$_SESSION["user"] = $rowData["username"];
 				header("Location: /tgbchess/puzzles/index.html?user=" . $rowData["username"]);
+			} else {
+				header("Location: /tgbchess/login/index.html");
 			}
 		}
   }
