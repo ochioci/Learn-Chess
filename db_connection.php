@@ -4,7 +4,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 function OpenCon()
  {
- $dbhost = "localhost";
+ $dbhost = "66.175.213.70";
  $dbuser = "tgbUser";
  $dbpass = "1000onLich3ss!";
  $db = "tgbchess";
