@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>chess puzzles</title>
+    <style>
+      @font-face {
+        font-family: "chess";
+        src:url("MAGNFONT.TTF")
+      }
+      @font-face {
+        font-family: "SimplyMonoBook";
+        src:url('SimplyMono-Book.ttf')
+      }
+      @font-face {
+        font-family: "SimplyMonoBold";
+        src:url('SimplyMono-Bold.ttf')
+      }
+      * {
+        font-family: "SimplyMonoBook";
+      }
+      html {
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        background-color: #a5c4bf;
+        display: grid;
+        grid-gap: 1vw;
+        height: 100%;
+        grid-template-columns: 30% 40% 30%;
+        grid-template-rows: 10% 50% 40%;
+      }
+      select {
+        border-radius: 10px;
+        font-size: 1vw;
+        border: 5px solid #35403e;
+        background-color: #7a918e;
+        text-align: center;
+        color: #b6ccc8;
+        padding: 0;
+      }
+      input {
+        border-radius: 10px;
+        font-size: 1vw;
+        border: 5px solid #35403e;
+        background-color: #7a918e;
+        text-align: center;
+        color: #b6ccc8;
+        padding: 0;
+        max-width: 75%;
+        max-height: 75%
+      }
+      button {
+        border-radius: 10px;
+        font-size: 1.5vw;
+        border: 5px solid #35403e;
+        background-color: #7a918e;
+        color: #b6ccc8;
+      }
+
+
+      button:hover {
+        animation: hoverAnimateButton 0.5s forwards;
+        /* animation-duration: 0.5s; */
+      }
+      button:not(:hover) {
+        animation: unhoverAnimateButton 0.5s forwards;
+        /* animation-duration: 0.5s; */
+      }
+
+      button:hover:active {
+        animation: buttonAnimateClick 0.1s forwards;
+      }
+
+      select:hover {
+        animation: hoverAnimateButton 0.5s forwards;
+        /* animation-duration: 0.5s; */
+      }
+      select:not(:hover) {
+        animation: unhoverAnimateButton 0.5s forwards;
+        /* animation-duration: 0.5s; */
+      }
+
+      select:hover:active {
+        animation: buttonAnimateClick 0.1s forwards;
+      }
+
+/*
+      button {
+        animation-name: unhoverAnimateButton;
+        animation-duration: 0.5s forwards;
+      } */
+
+      @keyframes buttonAnimateClick {
+        0% {color: #b6ccc8; border: 5px solid #35403e; background-color: #35403e;}
+        100% {color: #ffffff; border: 7px solid #35403e; background-color: #35403e;}
+      }
+
+      @keyframes buttonAnimateUnclick {
+        0% {color: #ffffff; border: 7px solid #35403e;}
+        100% {color: #b6ccc8; border: 5px solid #35403e;}
+      }
+
+      @keyframes unhoverAnimateButton {
+        0% {background-color: #35403e;}
+        100% {background-color: #7a918e; color: #b6ccc8;}
+
+      }
+      @keyframes hoverAnimateButton {
+        0% {background-color: #7a918e;}
+        100% {background-color: #35403e;}
+      }
+
+
+      .title {
+        grid-row-start: 1;
+        grid-column-start: 2;
+        line-height: 10vh;
+        font-size: 3vw;
+        font-family: "SimplyMonoBold";
+        color: #35403e;
+        text-shadow: -0.15vw 0.25vh 0 #dae6e3;
+      }
+      .loginArea {
+        grid-row-start: 2;
+        grid-column-start: 2;
+        background-color: #96b0ac;
+        border-radius: 10px;
+      }
+    </style>
+
+  </head>
+  <body>
+    <center class="title">freetheking.net</center>
+    <center class="formArea"></center>
+    <center class="loginArea">
+        <form action="login.php" method="GET">
+            <label for="user">Username</label>
+            <input name="user" type="text" id="user"/>
+            <label for="pw">Password</label>
+            <input name="pw" type="text" id="pw"/>
+            <input type="submit" value="Submit">
+        </form>
+    </center>
+  </body>
+</html>

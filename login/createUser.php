@@ -1,7 +1,7 @@
 <?php
 ini_set('display_errors',1);
 error_reporting(E_ALL);
-include '../db_connection.php';
+include '/tgbchess/util/db_connection.php';
 $conn = OpenCon();
 $username = $_GET["user"];
 $password = $_GET["pw"];

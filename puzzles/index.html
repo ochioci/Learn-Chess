@@ -79,6 +79,7 @@
         justify-content: center;
       }
       .titleContainer {
+        color: #35403e;
         grid-column:3;
         grid-row: 1;
         border-radius: 10px;
@@ -104,7 +105,7 @@
         animation: hoverAnimateButton 0.5s forwards;
         /* animation-duration: 0.5s; */
       }
-      button:not(:hCorrect!over) {
+      button:not(:hover) {
         animation: unhoverAnimateButton 0.5s forwards;
         /* animation-duration: 0.5s; */
       }
@@ -243,6 +244,13 @@
         /* margin-bottom: auto; */
         color: #35403e;
       }
+
+      #sessionInfoArea {
+        color: #35403e;
+        grid-row: 1;
+        font-size: 30pt;
+        /* color: #b6ccc8 */
+      }
     </style>
     <script>
       lastMoveFrom = {}
@@ -301,8 +309,14 @@
         ctx.fillStyle = "lightblue";
         ctx.fillRect(0,100,40,40)
         //begin game loop (handles board gui)
+        sessionInfoArea = document.getElementById("sessionInfoArea");
+        handleSessionInfo();
         await startNewPuzzle();
         gameLoop();
+      }
+
+      function handleSessionInfo() {
+        sessionInfoArea.innerText = "Welcome, " + window.location.href.split("?user=")[1]
       }
 
       async function startNewPuzzle() {
@@ -625,15 +639,17 @@
   </head>
   <body>
     <span class="boardArea" id="boardArea">
+      <center id="sessionInfoArea">Logged in as: </center>
       <canvas></canvas>
     </span>
 
-    <span class="titleContainer">
+    
+    <center class="titleContainer">
 	<h2>Chess Puzzles:</h2>
 	<br>- Drag and drop to move
 	<br>- Click anywhere on the board to reset position / get new puzzle
 	<br>- A few openings don't yet have puzzles
-	</span>
+    </center>
 
     <span class="inputContainer">
       <!-- <span class="tagLabel">Opening</span>
