@@ -311,8 +311,9 @@
           //width, height is bottom right
 
 
-        ctx.fillStyle = "lightblue";
-        ctx.fillRect(0,100,40,40)
+        // ctx.fillStyle = "lightblue";
+        ctx.font = "30pt serif";
+        ctx.fillText("Loading...", canvas.width/100, canvas.height / 1.1)
         //begin game loop (handles board gui)
         sessionInfoArea = document.getElementById("sessionInfoArea");
         handleSessionInfo();
