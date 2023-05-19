@@ -67,17 +67,21 @@
         grid-template-columns: 100%;
       }
       .statusContainer {
-        grid-column-start:1;
+        grid-column-start: 1;
         grid-column-end: 3;
-        grid-row: 1;
+        grid-row-start: 1;
+        grid-row-end: 3;
         border-radius: 10px;
         grid-gap: 0.5vh;
         background-color: #96b0ac;
-        display: inline-flex;
+        display: flex;
         color: #b6ccc8;
         font-size: 50pt;
         justify-content: center;
-      }
+        align-content: center;
+        align-items: center;
+    }
+      
       .titleContainer {
         color: #35403e;
         grid-column:3;
@@ -209,9 +213,11 @@
       .difficultyContainer {
         grid-row: 2;
         grid-column: 3;
-        display: grid;
-        grid-template-rows: 50% 50%;
-        grid-template-columns: 100%;
+        display: flex;
+        flex-wrap: nowrap;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
       }
 
       .maxSolutionsLabel {
@@ -253,11 +259,26 @@
       }
 
       .logoutButton {
+        grid-row-start:1;
+        grid-column-start:3;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .logout {
         justify-content: center;
         display: inline-flex;
+        font-size: min(3vw, 3vh);
+        border: 3px solid #35403e;
+        border-radius: 10px;
+        color: #b6ccc8;
+        background-color: #35403e;
+        padding: min(0.5vw, 0.5vh);
       }
     </style>
     <script>
+      pieceBackup = {"type": "none", "color": "none"}
       lastMoveFrom = {}
       lastMoveTo = {}
       selected = 'none'
@@ -556,8 +577,9 @@
       function handleMouseDown(e) {
         if (incorrect) {
           selected = 'none'
+          statusArea.innerText = '';
           board[lastMoveFrom.row][lastMoveFrom.col].occupier = board[lastMoveTo.row][lastMoveTo.col].occupier
-          board[lastMoveTo.row][lastMoveTo.col].occupier = {'type': 'none', "color": 'none'}
+          board[lastMoveTo.row][lastMoveTo.col].occupier = pieceBackup
           incorrect = false;
           lastMoveFrom = {}
           lastMoveTo = {}
@@ -604,6 +626,7 @@
         console.log("moved from ", selected.row, selected.col, " to ", releasedRow, releasedCol)
         if (board[releasedRow][releasedCol].occupier.color != friendlyColor && selected != 'none') {
           lastMoveTo = {"row": releasedRow, "col": releasedCol}
+          pieceBackup = board[releasedRow][releasedCol].occupier
           board[releasedRow][releasedCol].occupier = board[selected.row][selected.col].occupier
           board[selected.row][selected.col].occupier = {"type": "none", "color": "none"}
           handleAnswer(selected.row, selected.col, releasedRow, releasedCol)
@@ -699,7 +722,7 @@
     </span>
 
     <span class="controlsContainer">
-      <form class="logoutButton" action="../login/logout.php"><input type="submit" value="Log out"></form>
+      <form class="logoutButton" action="../login/logout.php"><input class="logout" type="submit" value="Log out"></form>
       <span class="difficultyContainer">
         
           <center class="maxSolutionsLabel">Difficulty</center>

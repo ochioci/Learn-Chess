@@ -1,7 +1,7 @@
 <?php
 ini_set('display_errors',1);
 error_reporting(E_ALL);
-include '/tgbchess/util/db_connection.php';
+include '../util/db_connection.php';
 $conn = OpenCon();
 $username = $_GET["user"];
 $password = $_GET["pw"];
@@ -20,13 +20,13 @@ if (intval($ct) < 1) {
     $q = "INSERT INTO User (username, password) VALUES ('" . $username . "', '" . $password . "') ";
     
     if ($result = mysqli_query($conn, $q)) {
-        echo "success";
+        header("Location: /tgbchess/login/index.html?msg=success");
     } else {
-        echo "db_error";
+        echo "database error";
     }
 
 } else {
-    echo "username_taken_error";
+    header("Location: /tgbchess/signup/index.html?msg=username_taken");
 } 
 
 ?>

@@ -62,8 +62,6 @@
       form * {
         display: block;
         margin: 1%;
-        font-size: min(4vw, 4vh);
-        color: #b6ccc8;
       }
 
 
@@ -72,15 +70,6 @@
         /* animation-duration: 0.5s; */
       }
       button:not(:hover) {
-        animation: unhoverAnimateButton 0.5s forwards;
-        /* animation-duration: 0.5s; */
-      }
-
-      input:hover {
-        animation: hoverAnimateButton 0.5s forwards;
-        /* animation-duration: 0.5s; */
-      }
-      input:not(:hover) {
         animation: unhoverAnimateButton 0.5s forwards;
         /* animation-duration: 0.5s; */
       }
@@ -127,7 +116,14 @@
         0% {background-color: #7a918e;}
         100% {background-color: #35403e;}
       }
-
+      input:hover {
+        animation: hoverAnimateButton 0.5s forwards;
+        /* animation-duration: 0.5s; */
+      }
+      input:not(:hover) {
+        animation: unhoverAnimateButton 0.5s forwards;
+        /* animation-duration: 0.5s; */
+      }
 
       .title {
         grid-row-start: 1;
@@ -148,17 +144,12 @@
         justify-content: center;
         flex-direction: column;
       }
-      
-      .formTitle {
-        font-size: min(5vh, 5vw);
-        margin: auto;
-        color: #35403e;
-      }
 
       form {
         padding: min(1vh, 1vw);
       }
 
+      
       .infoArea {
         grid-column-start: 2;
         grid-row-start: 3;
@@ -179,6 +170,24 @@
         background-color: #35403e;
         padding: min(0.5vw, 0.5vh);
       }
+
+      form * {
+        display: block;
+        margin: 1%;
+        font-size: min(4vw, 4vh);
+        color: #b6ccc8;
+      }
+
+      .formTitle {
+        font-size: min(5vh, 5vw);
+        margin: auto;
+        color: #35403e;
+      }
+      input {
+        padding: min(0.5vh, 0.5vw);
+      }
+
+
     </style>
 
   </head>
@@ -186,8 +195,8 @@
     <center class="title">freetheking.net</center>
     <center class="formArea"></center>
     <center class="loginArea">
-        <span class="formTitle">Login</span>
-        <form action="login.php" method="GET">
+      <span class="formTitle">Create account</span>
+        <form action="createUser.php" method="GET">
             <label for="user">Username</label>
             <input name="user" type="text" id="user"/>
             <label for="pw">Password</label>
@@ -197,7 +206,7 @@
     </center>
     <center class="infoArea">
       Over 1.2 million puzzles from 20+ openings, completely free!
-      <a href="../signup">Sign up</a>
+      <a href="../login">Login</a>
     </center>
   </body>
 </html>
