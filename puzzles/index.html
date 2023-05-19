@@ -405,8 +405,13 @@
           board[7][4].occupier = {"type": "king", "color": "w"}
 
 
-
+        canvas.removeEventListener("mousedown", handleMouseDown)
+        canvas.removeEventListener("mouseup", handleMouseUp)
+        canvas.removeEventListener("mousemove", handleMouseMove)
         puzzleData = await getRandomPuzzle();
+        canvas.addEventListener("mousedown", handleMouseDown)
+        canvas.addEventListener("mouseup", handleMouseUp)
+        canvas.addEventListener("mousemove", handleMouseMove)
         seqToFollow = puzzleData[1].split(" ")
         console.log(seqToFollow)
         solutions = puzzleData[2].split(" ")
